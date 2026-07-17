@@ -1,51 +1,59 @@
-# @aliaksei-raketski/pi-angular-developer
+# James Andrew Labtic — Angular Developer
 
-A Pi package that vendors the official Angular `angular-developer` Agent Skill and replaces Angular MCP guidance with local helper scripts.
+A Pi package maintained by **James Andrew Labtic** for company-standard Angular development.
 
-## Install
+It combines Angular framework guidance with:
 
-```bash
-pi install npm:@aliaksei-raketski/pi-angular-developer
-# or project-local
-pi install -l npm:@aliaksei-raketski/pi-angular-developer
-```
+- `@ntv360/component-pantry` component references
+- WARP architecture
+- Company TypeScript, SCSS, BEM, Tailwind, testing, and documentation rules
+- Local Angular documentation helper scripts
 
-## Installed skill
+## Install from private GitHub
 
-- `skills/angular-developer`
-
-This package is distributed as source files and markdown resources; Pi loads the skill directly from the installed package.
-
-## Package contents
-
-- Angular developer skill instructions and references.
-- Local documentation helper scripts used by the skill.
-
-## Key helpers
-
-- `skills/angular-developer/scripts/get-best-practices.mjs`
-- `skills/angular-developer/scripts/search-documentation.mjs`
-
-From the skill directory:
+Use SSH so Pi can access the private repository through your configured GitHub SSH key:
 
 ```bash
-node scripts/get-best-practices.mjs --help
-node scripts/search-documentation.mjs "signals" --version 22 --limit 3 --json
+pi install git:git@github.com:Hayme123/angular-developer.git
 ```
 
-## Sync
-
-Run from package root:
+For a project-local installation:
 
 ```bash
-node scripts/sync-angular-skill.mjs
+pi install -l git:git@github.com:Hayme123/angular-developer.git
 ```
 
-Use `ANGULAR_SKILLS_REF` to override the synced ref.
-
-After sync, consider validating the helper scripts:
+HTTPS also works when Git is already authenticated with GitHub:
 
 ```bash
-node skills/angular-developer/scripts/search-documentation.mjs "signals" --version 22 --limit 2 --json
-node skills/angular-developer/scripts/get-best-practices.mjs --help
+pi install git:https://github.com/Hayme123/angular-developer.git
 ```
+
+## Install from this local folder
+
+```powershell
+pi install C:\Users\Labtic\angular-developer
+```
+
+Project-local:
+
+```powershell
+pi install -l C:\Users\Labtic\angular-developer
+```
+
+Pi loads the skill from `skills/angular-developer`.
+
+## Update
+
+```bash
+pi update git:git@github.com:Hayme123/angular-developer.git
+```
+
+## Validate
+
+```bash
+npm run check:standards
+npm run sync
+```
+
+`npm run sync` refreshes upstream Angular guidance and reapplies the maintained company content from `overlays/angular-developer`.
