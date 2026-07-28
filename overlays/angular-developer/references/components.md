@@ -8,7 +8,7 @@ If `@ntv360/component-pantry` provides the required component, use it and read o
 
 ## Component definition
 
-Use standalone components when supported by the project's Angular version and architecture. Keep templates and styles in their standard project files.
+WARP applications use standalone components with `bootstrapApplication()`; do not add NgModules. Keep templates and styles in their standard project files. For non-WARP or older projects, inspect the existing bootstrap architecture before changing component style.
 
 ```ts
 /** Displays and edits a user profile. */
@@ -29,6 +29,9 @@ export class Profile {
 ## State and dependency injection
 
 - Prefer `signal()`, `computed()`, and `inject()` where supported by the project's Angular version and existing architecture.
+- Preserve `provideZonelessChangeDetection()` when the application uses zoneless change detection.
+- Avoid constructor injection in WARP components; use `inject()` in an injection context.
+- Guard browser-only APIs with `isPlatformBrowser()` in SSR code.
 - Match the project's current form strategy. Pantry controls implementing `ControlValueAccessor` can participate in reactive forms.
 - Derive state with `computed()` instead of synchronizing it through effects.
 

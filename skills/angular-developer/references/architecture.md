@@ -1,43 +1,63 @@
-# WARP Architecture Standards
+# WARP Architecture
 
-Follow the existing project structure. For WARP applications, use:
+Inspect the current repository before changing structure. Existing implementation wins over generic examples.
+
+## Application structure
 
 ```text
 src/
 ├── app/
-│   ├── core/       # Infrastructure, guards, services, models, constants
-│   ├── features/   # Business features and pages
+│   ├── core/       # Singleton services, guards, interceptors, models
+│   ├── features/   # Route-driven business features
 │   ├── layout/     # Authenticated and public layout shells
-│   └── shared/     # Reusable components, directives, and pipes
-└── server/         # BFF middleware, configuration, services, and types
+│   └── shared/     # Reusable UI, directives, and pipes
+└── server/         # SSR/BFF routes, controllers, services, middleware, config, types
 ```
 
-## Features
+- Put app-wide infrastructure in `core`.
+- Put reusable presentation in `shared`.
+- Put business screens in `features`.
+- Put route grouping and application shells in `layout`.
+- Do not add NgModules to standalone WARP applications.
+- Do not add placeholder architecture for speculative features.
 
-1. Add a feature under `src/app/features/<feature>/`.
-2. Register its routes in the appropriate `layout/*/routes.ts`.
-3. Follow the project's page scaffolding, including sibling `constants`, `interfaces`, and optional `components` directories when needed.
-4. Export through an existing barrel only when the project uses that pattern.
+## Features and routing
+
+1. Create a feature under `src/app/features/<feature>/`.
+2. Register routes in the appropriate `layout/*/routes.ts`.
+3. Prefer lazy loading for route-driven features when it matches nearby routes.
+4. Use guards from `core/guards` for authenticated or guest access.
+5. Export through existing barrels only when the repository uses them.
 
 ## Imports
 
-Order imports with blank lines between groups:
+Order imports with blank lines between Angular, third-party/NTV, and local groups. Preserve section comments when the repository uses them.
 
-1. Angular
-2. Third-party packages, including `@ntv360/component-pantry`
-3. Local aliases
+```ts
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
-Use configured aliases such as `@core`, `@features`, `@shared`, and `@layouts` instead of long relative paths. Include `.js` extensions in server imports when required by the runtime.
+import { NtvButtonComponent } from '@ntv360/component-pantry';
 
-## SSR and BFF
+import { AuthService } from '@core';
+import { DashboardComponent } from '@features/dashboard';
+```
 
-For projects using the BFF pattern:
+Use configured aliases such as `@core`, `@features`, `@shared`, and `@layouts` instead of deep relative paths. Server-side local imports must include `.js` when required by the runtime.
+
+## SSR and zoneless operation
+
+- Guard `window`, `document`, storage, and other browser-only APIs with `isPlatformBrowser()` or the repository's existing abstraction.
+- Preserve `provideZonelessChangeDetection()` when the project uses zoneless change detection.
+- Prefer `signal()`, `computed()`, and `inject()` over constructor-managed component state.
+- Keep backend URLs, credentials, security policy, and server validation out of browser bundles.
+
+## BFF
+
+Use the BFF flow when present:
 
 ```text
 Browser → Angular SSR server/BFF → backend API
 ```
 
-- Keep backend URLs and sensitive server concerns out of browser bundles.
-- Centralize server-side security and validation.
-- Use SSR-safe authentication services and route guards.
-- Guard browser-only APIs with `isPlatformBrowser()` or an equivalent existing abstraction.
+Read [bff-architecture.md](bff-architecture.md) before adding server routes, controllers, or services. Use [bff-implementation-example.md](bff-implementation-example.md) only when a complete example is needed. For middleware and CSP work, read [security-headers.md](security-headers.md).

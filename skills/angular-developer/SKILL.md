@@ -1,6 +1,6 @@
 ---
 name: angular-developer
-description: Generates company-standard Angular code using @ntv360/component-pantry and WARP conventions. Trigger when creating projects, components, services, forms, routing, SSR, styling, testing, or Angular architecture.
+description: Generates company-standard Angular code using @ntv360/component-pantry and WARP conventions. Trigger when creating projects, components, services, forms, routing, zoneless Angular, SSR/BFF, security headers, styling, testing, or Angular architecture.
 license: MIT
 metadata:
   author: Copyright 2026 Google LLC
@@ -19,11 +19,13 @@ The Angular references include the company conventions directly:
 - **Architecture**: WARP folders, imports, SSR, and BFF rules. Read [architecture.md](references/architecture.md)
 - **Testing**: JSDoc, test selectors, completion checks, and Angular testing. Read [testing-fundamentals.md](references/testing-fundamentals.md)
 
+For WARP applications, preserve standalone components, zoneless change detection, SSR-safe browser API guards, signals, `inject()`, path aliases, and the existing repository structure. Do not introduce NgModules or speculative architecture.
+
 1. Always analyze the project's Angular version before providing guidance, as best practices and available features can vary significantly between versions. If creating a new project with Angular CLI, do not specify a version unless prompted by the user.
 
 2. When generating code, follow Angular's style guide and best practices for maintainability and performance. Use the Angular CLI for scaffolding components, services, directives, pipes, and routes to ensure consistency.
 
-3. Once you finish generating code, run `ng build` to ensure there are no build errors. If there are errors, analyze the error messages and fix them before proceeding. Do not skip this step, as it is critical for ensuring the generated code is correct and functional.
+3. Once you finish generating code, run the project's build script (usually `npm run build`) or `ng build` when no project script exists. Analyze and fix build errors before proceeding.
 
 4. When you need version-aware Angular best practices or official angular.dev documentation search, use the local helper scripts documented in [docs-helpers.md](references/docs-helpers.md).
 
@@ -97,7 +99,10 @@ When implementing dependency injection in Angular, follow these guidelines:
 
 ## Architecture
 
-For project structure, path aliases, import ordering, SSR, and BFF work, read [architecture.md](references/architecture.md).
+- **WARP, SSR, and zoneless Angular**: Project structure, aliases, routing, browser guards, and BFF entry points. Read [architecture.md](references/architecture.md)
+- **BFF layers**: Route, controller, service, and error-handling responsibilities. Read [bff-architecture.md](references/bff-architecture.md)
+- **BFF example**: A complete typed resource flow. Read [bff-implementation-example.md](references/bff-implementation-example.md)
+- **Server security**: HTTP headers, CSP, middleware order, and verification. Read [security-headers.md](references/security-headers.md)
 
 ## Routing
 
