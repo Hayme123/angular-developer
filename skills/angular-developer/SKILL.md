@@ -17,7 +17,8 @@ The Angular references include the company conventions directly:
 - **Components**: Pantry-first selection, signals, templates, constants, and page composition. Read [components.md](references/components.md)
 - **Styling**: SCSS, BEM, Tailwind, semantic colors, Pantry overrides, and responsive layouts. Read [component-styling.md](references/component-styling.md)
 - **Architecture**: WARP folders, imports, SSR, and BFF rules. Read [architecture.md](references/architecture.md)
-- **Testing**: JSDoc, test selectors, completion checks, and Angular testing. Read [testing-fundamentals.md](references/testing-fundamentals.md)
+- **Testing**: Test selectors, completion checks, and Angular testing. Read [testing-fundamentals.md](references/testing-fundamentals.md)
+- **JSDoc**: Document JavaScript and TypeScript APIs without changing runtime behavior. Read [jsdoc.md](references/jsdoc.md)
 
 For WARP applications, preserve standalone components, zoneless change detection, SSR-safe browser API guards, signals, `inject()`, path aliases, and the existing repository structure. Do not introduce NgModules or speculative architecture.
 
