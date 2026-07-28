@@ -9,6 +9,10 @@ metadata:
 
 # Angular Developer Guidelines
 
+## Reference Selection
+
+Use the [reference map](references/index.md) to select and read the smallest relevant set of topic guides for each task. Read only the references needed for the current request.
+
 ## Project Development Rules
 
 The Angular references include the company conventions directly:
